@@ -1,0 +1,50 @@
+##################################################################################################
+# Member-Mangement service
+##################################################################################################
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: membermanagement
+  labels:
+    app: membermanagement
+    service: membermanagement
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: membermanagement
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kona-membermanagement
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: membermanagement
+  labels:
+    app: membermanagement
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: membermanagement
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: membermanagement
+        version: v1
+    spec:
+      serviceAccountName: kona-membermanagement
+      containers:
+      - name: membermanagement
+        image: docker.io/4694284878/member-management:30
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+---
