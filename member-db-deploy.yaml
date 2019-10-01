@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: memberdb
+  labels:
+    app: memberdb
+    service: memberdb
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: memberdb
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kona-memberdb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memberdb
+  labels:
+    app: memberdb
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memberdb
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: memberdb
+        version: v1
+    spec:
+      serviceAccountName: kona-memberdb
+      containers:
+      - name: membermanagement
+        image: docker.io/4694284878/member-management:30
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+---
