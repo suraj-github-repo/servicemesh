@@ -10,13 +10,9 @@ spec:
   ports:
   - port: 80
     name: http
+    targetPort: 5432
   selector:
     app: memberdb
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: kona-memberdb
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -37,11 +33,17 @@ spec:
         app: memberdb
         version: v1
     spec:
-      serviceAccountName: kona-memberdb
       containers:
       - name: membermanagement
-        image: docker.io/4694284878/member-management:30
+        image: 808083692205.dkr.ecr.us-east-2.amazonaws.com/memberdb:latest
+        env: 
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_DB
+          value: MemberMgt
+        - name: POSTGRES_PASSWORD
+          value: postgres
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
+        - containerPort: 5432
 ---
