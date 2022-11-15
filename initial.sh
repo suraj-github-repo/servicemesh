@@ -12,7 +12,7 @@ sudo add-apt-repository \
 sudo apt-get update
 
 #Install docker community edition
-sudo apt-get install -y docker-ce=20.10.18~ce~3-0~ubuntu
+sudo apt-get install -y docker-ce=20.10.7~ce~3-0~ubuntu
 
 #Prevent auto updates for docker package
 sudo apt-mark hold docker-ce
