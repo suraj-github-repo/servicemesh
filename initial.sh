@@ -12,7 +12,7 @@ sudo add-apt-repository \
 sudo apt-get update
 
 #Install docker community edition
-sudo apt-get install -y docker-ce=20.10.7~ce~3-0~ubuntu
+sudo apt-get install -y docker-ce=18.06.1~ce~3-0~ubuntu
 
 #Prevent auto updates for docker package
 sudo apt-mark hold docker-ce
@@ -29,7 +29,7 @@ EOF
 sudo apt-get update
 
 #Install packages
-sudo apt-get install -y kubelet=1.25.4-00 kubeadm=1.25.4-00 kubectl=1.25.4-00
+sudo apt-get install -y kubelet=1.13.7-00 kubeadm=1.13.7-00 kubectl=1.13.7-00
 
 #Prevent auto updates for kube package
 sudo apt-mark hold kubelet kubeadm kubectl
